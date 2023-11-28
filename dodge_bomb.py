@@ -53,13 +53,16 @@ def main():
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
-                # gb_img = pg.image.load("ex02/fig/8.jpg")
-                # gb_img = pg.transform.rotozoom(gb_img, 0, 2.0)
-                # screen.blit(gb_img, )
                 return
         
         if kk_rct.colliderect(bb_rct_now):
             print("Game Over")
+            kk_img = pg.image.load("ex02/fig/8.png")
+            kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+            screen.blit(bg_img, [0, 0])
+            screen.blit(kk_img,kk_rct)
+            pg.display.update()
+            pg.time.wait(600)
             return
         
         avx,avy = vx*accs[min(tmr//500, 9)], vy*accs[min(tmr//500, 9)]
