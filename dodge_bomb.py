@@ -35,7 +35,10 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
-
+        
+        if kk_rct.colliderect(bb_rct):
+            print("Game Over")
+            return
         key_lst = pg.key.get_pressed()
         sum_mv = [0,0]
         for key,tpl in delta.items():
@@ -56,7 +59,7 @@ def main():
         screen.blit(bb_img,bb_rct)
         pg.display.update()
         tmr += 1
-        clock.tick(50)
+        clock.tick(100)
 
 
 def check_bound(rct:pg.Rect) -> tuple:
