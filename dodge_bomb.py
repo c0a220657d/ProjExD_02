@@ -11,6 +11,7 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kk_img_out = kk_img
     kk_rct = kk_img.get_rect()  # こうかとんSurfaceからRect 
     kk_rct.center = 900,400
     bb_img = pg.Surface((20,20))  # 爆弾用Surface 
@@ -29,7 +30,17 @@ def main():
         pg.K_LEFT: (-5,0),
         pg.K_RIGHT: (5,0)
     }
-
+    kk_rot = {  # こうかとんの向き(移動量):(角度,反転)
+        (0,-5):(-90,True),
+        (5,-5):(-45,True),
+        (5,0):(0,True),
+        (5,5):(45,True),
+        (0,5):(90,True),
+        (-5,5):(45,False),
+        (-5,0):(0,False),
+        (-5,-5):(-45,False),
+        (0,0):None
+    }
 
     while True:
         for event in pg.event.get():
@@ -45,11 +56,14 @@ def main():
             if key_lst[key]:  # キーが押されたら 
                 sum_mv[0] += tpl[0]
                 sum_mv[1] += tpl[1]
+        kk_rotval = kk_rot[(sum_mv[0],sum_mv[1])]
+        if kk_rotval is not None:
+            kk_img_out = pg.transform.flip(pg.transform.rotozoom(kk_img, kk_rotval[0], 1.0),kk_rotval[1],False)  # kk_rotvalから回転量、反転を取得、反映
         kk_rct.move_ip(sum_mv[0],sum_mv[1])
         if check_bound(kk_rct) != (True,True):
             kk_rct.move_ip(-sum_mv[0],-sum_mv[1])
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, kk_rct)
+        screen.blit(kk_img_out, kk_rct)
         bb_rct.move_ip(vx,vy)
         yoko,tate = check_bound(bb_rct)
         if not yoko:
