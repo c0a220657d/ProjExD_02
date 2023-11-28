@@ -22,6 +22,7 @@ kk_rot = {  # こうかとんの向き(移動量):(角度,反転)
     }
 accs = [i for i in range(1,11)]
 
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -49,7 +50,6 @@ def main():
     clock = pg.time.Clock()
     tmr = 0
     
-
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -110,6 +110,7 @@ def check_bound(rct:pg.Rect) -> tuple:
     if rct.top < 0 or HEIGHT < rct.bottom:
         tate = False
     return yoko,tate
+
 
 if __name__ == "__main__":
     pg.init()
