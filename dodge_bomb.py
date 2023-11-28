@@ -28,7 +28,7 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
-    kk_img_out = kk_img  # こうかとん初期 
+    kk_img_out = kk_img  # こうかとん初期画像 
     kk_rct = kk_img_out.get_rect()  # こうかとんSurfaceからRect 
     kk_rct.center = 900,400
     bb_imgs = []
@@ -40,7 +40,7 @@ def main():
     bb_rct = bb_imgs[0].get_rect()
     bbpos_x = random.randint(0,WIDTH)  # 爆弾の中心座標
     bbpos_y = random.randint(0,HEIGHT)
-    bb_rct.centerx = bbpos_x  
+    bb_rct.centerx = bbpos_x  # 初期座標設定 
     bb_rct.centery = bbpos_y
     bb_rct_now = bb_rct
     accs = [i for i in range(1,11)] 
@@ -68,7 +68,7 @@ def main():
         avx,avy = vx*accs[min(tmr//500, 9)], vy*accs[min(tmr//500, 9)]
         bb_img = bb_imgs[min(tmr//500, 9)]
         bb_rct_now = bb_img.get_rect()  # 爆弾Surfaceからrect抽出 
-        bb_rct_now.centerx = bbpos_x
+        bb_rct_now.centerx = bbpos_x  #中心座標適用
         bb_rct_now.centery = bbpos_y
         key_lst = pg.key.get_pressed()
         sum_mv = [0,0]
